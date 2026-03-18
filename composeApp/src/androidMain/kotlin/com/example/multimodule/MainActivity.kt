@@ -1,5 +1,6 @@
 package com.example.multimodule
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,6 +37,7 @@ class MainActivity : ComponentActivity() {
 //        }
 
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         // Start Koin DI
         startKoin {
