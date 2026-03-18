@@ -32,6 +32,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
 
             // UI depends on presentation
+            implementation(projects.feature.authentication.presentation)
             implementation(projects.feature.home.presentation)
             implementation(projects.coreNetwork)
 

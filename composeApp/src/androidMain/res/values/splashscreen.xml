@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.MyApp.Starting" parent="Theme.SplashScreen">
         <!-- Background color of the splash screen -->
-        <item name="windowSplashScreenBackground">#FFFFFF</item>
+        <item name="windowSplashScreenBackground">@color/background</item>
 
         <!-- Animated icon shown on the splash screen -->
         <item name="windowSplashScreenAnimatedIcon">@drawable/roundicon</item>

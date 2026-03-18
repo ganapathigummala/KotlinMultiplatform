@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import screens.AuthenticationScreen
 import com.example.multimodule.core.network.di.NetworkModule
 import com.example.multimodule.feature.home.presentation.di.homeModule
 import kotlinx.coroutines.launch
@@ -24,15 +25,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         var isChecking = true
-        lifecycleScope.launch {
-            Thread.sleep(100)
-            isChecking = false
-        }
-        installSplashScreen().apply {
-            setKeepOnScreenCondition {
-                isChecking
-            }
-        }
+//        lifecycleScope.launch {
+//            Thread.sleep(10)
+//            isChecking = false
+//        }
+//        installSplashScreen().apply {
+//            setKeepOnScreenCondition {
+//                isChecking
+//            }
+//        }
 
         super.onCreate(savedInstanceState)
 
@@ -46,7 +47,8 @@ class MainActivity : ComponentActivity() {
             KoinContext {
                 Scaffold { paddingValues ->
                     // This padding ensures content is below status bar & above navigation bar
-                    HomeScreen(modifier = Modifier.padding(paddingValues))
+//                    HomeScreen(modifier = Modifier.padding(paddingValues))
+                    AuthenticationScreen(modifier = Modifier.padding(paddingValues))
                 }
             }
         }
@@ -63,7 +65,9 @@ fun HomeScreenWithInsets() {
 
     Scaffold { paddingValues ->
         // This padding ensures content is below status bar & above navigation bar
-        HomeScreen(modifier = Modifier.padding(paddingValues))
+//        HomeScreen(modifier = Modifier.padding(paddingValues))
+        AuthenticationScreen(modifier = Modifier.padding(paddingValues))
+
     }
 }
 

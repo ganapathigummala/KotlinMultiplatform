@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand colors -->
+    <color name="primary">#FF2196F3</color>        <!-- Main brand blue -->
+    <color name="primary_variant">#FF1976D2</color> <!-- Darker blue for pressed states -->
+    <color name="secondary">#FF4CAF50</color>      <!-- Green accent for success/health -->
+    <color name="secondary_variant">#FF388E3C</color>
+
+    <!-- UI colors -->
+    <color name="background">#FFFFFFFF</color>     <!-- White background -->
+    <color name="surface">#FFF5F5F5</color>        <!-- Light gray for cards -->
+    <color name="error">#FFD32F2F</color>           <!-- Red for errors -->
+    <color name="on_primary">#FFFFFFFF</color>      <!-- Text/icons on primary background (white) -->
+    <color name="on_secondary">#FF000000</color>    <!-- Text on secondary background (black) -->
+    <color name="on_background">#FF000000</color>   <!-- Text on background -->
+    <color name="on_surface">#FF000000</color>      <!-- Text on surface -->
+    <color name="on_error">#FFFFFFFF</color>        <!-- Text on error background -->
+</resources>
