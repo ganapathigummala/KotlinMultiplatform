@@ -39,7 +39,8 @@ fun MobileNumberInput(
     // Simple dropdown for country codes – in a real app you'd have a list
     val countryCodes = listOf("+1", "+44", "+91", "+61")
     var expanded by remember { mutableStateOf(false) }
-
+    var text by remember { mutableStateOf("") }
+    val maxChars = 10
     Column(modifier = Modifier.fillMaxWidth()
         .padding(10.dp)) {
         Row(
@@ -83,7 +84,11 @@ fun MobileNumberInput(
             // Mobile number field
             OutlinedTextField(
                 value = mobileNumber,
-                onValueChange = onMobileNumberChange,
+                onValueChange = { newText ->
+                    if (newText.length <= maxChars) {
+                        onMobileNumberChange(newText)
+                    }
+                },
                 modifier = Modifier.weight(1f),
                 placeholder = { Text("Mobile number") },
                 keyboardOptions = KeyboardOptions(
