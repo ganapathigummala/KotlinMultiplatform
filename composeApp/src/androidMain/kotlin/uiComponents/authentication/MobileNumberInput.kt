@@ -1,4 +1,4 @@
-package authentication
+package uiComponents.authentication
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,7 +42,7 @@ fun MobileNumberInput(
     var text by remember { mutableStateOf("") }
     val maxChars = 10
     Column(modifier = Modifier.fillMaxWidth()
-        .padding(10.dp)) {
+        ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically

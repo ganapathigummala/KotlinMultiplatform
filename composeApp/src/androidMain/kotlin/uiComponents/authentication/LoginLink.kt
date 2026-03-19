@@ -1,4 +1,4 @@
-package authentication
+package uiComponents.authentication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

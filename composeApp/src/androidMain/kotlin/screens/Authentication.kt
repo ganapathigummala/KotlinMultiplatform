@@ -9,13 +9,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import authentication.AlternativeSignInOptions
-import authentication.ConsentCheckbox
-import authentication.ContinueButton
-import authentication.HeaderSection
-import authentication.LoginLink
-import authentication.MobileNumberInput
 import com.example.multimodule.R
+import uiComponents.authentication.AlternativeSignInOptions
+import uiComponents.authentication.ConsentCheckbox
+import uiComponents.authentication.ContinueButton
+import uiComponents.authentication.HeaderSection
+import uiComponents.authentication.LoginLink
+import uiComponents.authentication.MobileNumberInput
 import viewmodel.AuthenticationViewModel
 @Composable
 fun AuthenticationScreen(
@@ -27,9 +27,8 @@ fun AuthenticationScreen(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(
-            colorResource(R.color.background)
-        ),
+            .background(colorResource(R.color.background))
+            .padding(10.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

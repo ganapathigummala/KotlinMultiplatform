@@ -1,4 +1,4 @@
-package authentication
+package uiComponents.authentication
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
