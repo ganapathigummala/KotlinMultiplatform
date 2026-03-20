@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import screens.AuthenticationScreen
 
@@ -40,16 +41,15 @@ import screens.AuthenticationScreen
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+
         var isChecking = true
         lifecycleScope.launch {
-            Thread.sleep(10)
+            delay(500)
             isChecking = false
         }
-        installSplashScreen().apply {
-            setKeepOnScreenCondition {
-                isChecking
-            }
-        }
+
+        splashScreen.setKeepOnScreenCondition { isChecking }
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()

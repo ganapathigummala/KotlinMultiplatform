@@ -19,7 +19,7 @@ kotlin {
     sourceSets {
 
         androidMain.dependencies {
-            implementation("androidx.core:core-splashscreen:1.0.1")
+            implementation(libs.core.splashscreen)
 
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)

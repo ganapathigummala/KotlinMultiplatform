@@ -7,10 +7,11 @@
         <!-- Animated icon shown on the splash screen -->
         <item name="windowSplashScreenAnimatedIcon">@drawable/roundicon</item>
 
-        <!-- Duration of the splash animation in milliseconds -->
+        <item name="windowSplashScreenIconBackgroundColor">@android:color/white</item>
+
         <item name="windowSplashScreenAnimationDuration">500</item>
 
-        <!-- Theme to apply after the splash screen disappears -->
         <item name="postSplashScreenTheme">@android:style/Theme.Material.NoActionBar</item>
+
     </style>
 </resources>
