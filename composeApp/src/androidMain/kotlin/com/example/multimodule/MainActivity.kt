@@ -57,9 +57,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             Scaffold { paddingValues ->
-                AuthenticationScreen(
-                    modifier = Modifier.padding(paddingValues)
-                )
+                HomeScreen(modifier = Modifier.padding(paddingValues))
+
             }
         }
     }
@@ -75,7 +74,7 @@ class MainActivity : ComponentActivity() {
         Scaffold { paddingValues ->
             // This padding ensures content is below status bar & above navigation bar
     //        HomeScreen(modifier = Modifier.padding(paddingValues))
-            AuthenticationScreen(modifier = Modifier.padding(paddingValues))
+            HomeScreen(modifier = Modifier.padding(paddingValues))
 
         }
     }

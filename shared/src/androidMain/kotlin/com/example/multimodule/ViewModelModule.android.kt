@@ -5,7 +5,15 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 actual fun ViewModelModule(): Module {
-  return  module {
-        viewModel{ SharedViewModel() }
+    return module {
+
+        viewModel {
+            SharedViewModel()
+        }
+
+        viewModel {
+            ApodViewModel(get())
+        }
+
     }
 }

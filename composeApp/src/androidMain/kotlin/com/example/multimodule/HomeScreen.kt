@@ -16,8 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.example.multimodule.feature.home.presentation.state.ApodState
-import com.example.multimodule.feature.home.presentation.viewmodel.ApodViewModel
+import state.ApodState
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

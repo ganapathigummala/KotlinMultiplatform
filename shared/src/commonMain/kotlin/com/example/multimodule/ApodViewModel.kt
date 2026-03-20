@@ -1,19 +1,18 @@
-package com.example.multimodule.feature.home.presentation.viewmodel
+package com.example.multimodule
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.multimodule.coreNetwork.model.NasaApi
-import com.example.multimodule.feature.home.presentation.state.ApodState
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
+import com.rickclephas.kmp.observableviewmodel.launch
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import state.ApodState
 
 class ApodViewModel(
     private val nasaApi: NasaApi
 ) : ViewModel() {
 
-    private val _apodState = MutableStateFlow<ApodState>(ApodState.Loading)
+    private val _apodState = MutableStateFlow<ApodState>(viewModelScope,ApodState.Loading)
     val apodState: StateFlow<ApodState> = _apodState.asStateFlow()
 
     init {

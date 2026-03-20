@@ -1,4 +1,4 @@
-package com.example.multimodule.feature.home.presentation.state
+package state
 
 import com.example.multimodule.coreNetwork.model.ApodResponse
 
