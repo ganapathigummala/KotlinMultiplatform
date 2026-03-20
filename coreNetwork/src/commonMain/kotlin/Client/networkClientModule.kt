@@ -1,13 +1,13 @@
-package com.example.multimodule.core.network.di
-import com.example.multimodule.coreNetwork.retrofit.NasaApi
+package Client
 import com.example.multimodule.coreNetwork.expectFun.getPlatformHttpClientEngine
+import com.example.multimodule.coreNetwork.retrofit.NasaApi
 import io.ktor.client.HttpClient
 import org.koin.dsl.module
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import io.ktor.client.plugins.logging.*
-val NetworkModule = module {
+val networkClientModule = module {
     single {
         HttpClient(getPlatformHttpClientEngine()) {
             install(ContentNegotiation) {
