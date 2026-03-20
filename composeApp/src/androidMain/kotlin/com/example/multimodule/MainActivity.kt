@@ -12,21 +12,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import screens.AuthenticationScreen
 
 //    class MainActivity : ComponentActivity() {
 //        override fun onCreate(savedInstanceState: Bundle?) {
-//            enableEdgeToEdge()
-//            var isChecking = true
-//    //        lifecycleScope.launch {
-//    //            Thread.sleep(10)
-//    //            isChecking = false
-//    //        }
-//    //        installSplashScreen().apply {
-//    //            setKeepOnScreenCondition {
-//    //                isChecking
-//    //            }
-//    //        }
+
 //
 //            super.onCreate(savedInstanceState)
 //            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -47,6 +40,16 @@ import screens.AuthenticationScreen
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        var isChecking = true
+        lifecycleScope.launch {
+            Thread.sleep(10)
+            isChecking = false
+        }
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                isChecking
+            }
+        }
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
