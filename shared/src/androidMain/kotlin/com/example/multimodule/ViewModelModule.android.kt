@@ -7,6 +7,7 @@ import viewmodels.ApodViewModel
 import viewmodels.SharedViewModel
 
 actual fun ViewModelModule(): Module {
+
     return module {
 
         viewModel {
