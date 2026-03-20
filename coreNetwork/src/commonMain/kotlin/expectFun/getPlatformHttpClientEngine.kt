@@ -1,4 +1,4 @@
-package com.example.multimodule.coreNetwork.model
+package com.example.multimodule.coreNetwork.expectFun
 
 import io.ktor.client.engine.HttpClientEngine
 

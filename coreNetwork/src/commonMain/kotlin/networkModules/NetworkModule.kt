@@ -1,6 +1,6 @@
 package com.example.multimodule.core.network.di
 import com.example.multimodule.coreNetwork.retrofit.NasaApi
-import com.example.multimodule.coreNetwork.model.getPlatformHttpClientEngine
+import com.example.multimodule.coreNetwork.expectFun.getPlatformHttpClientEngine
 import io.ktor.client.HttpClient
 import org.koin.dsl.module
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
