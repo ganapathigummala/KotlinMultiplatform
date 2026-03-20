@@ -20,7 +20,12 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     sourceSets {
-
+        all {
+            languageSettings {
+                optIn("kotlin.experimental.ExperimentalObjCName")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            }
+        }
         androidMain.dependencies {
 
             implementation(libs.compose.uiToolingPreview)

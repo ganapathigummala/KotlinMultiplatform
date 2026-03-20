@@ -17,7 +17,12 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-
+        all {
+            languageSettings {
+                optIn("kotlin.experimental.ExperimentalObjCName")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            }
+        }
         commonMain.dependencies {
             implementation(libs.coil.network.ktor)
 

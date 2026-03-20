@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.nativecoroutines)
 }
 
 kotlin {
@@ -22,23 +23,25 @@ kotlin {
 
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
-
             implementation(libs.compose.runtime)
             implementation(libs.compose.ui)
             implementation(libs.compose.material3)
-
             implementation(libs.androidx.lifecycle.runtimeCompose)
-
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.core)
+            implementation(libs.kmp.observableviewmodel.core)
+            // image loading
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
 
             // UI depends on presentation
             implementation(projects.feature.authentication.presentation)
             implementation(projects.feature.home.presentation)
+            implementation(projects.feature.home.domain)
+            implementation(projects.shared)
             implementation(projects.coreNetwork)
 
-            // image loading
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.ktor)
+
         }
 
         commonMain.dependencies {

@@ -1,7 +1,10 @@
 package screens
+import android.content.Context
+import android.widget.TextView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,6 +13,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.multimodule.R
+import com.example.multimodule.SharedViewModel
+import org.koin.compose.viewmodel.koinViewModel
 import uiComponents.authentication.AlternativeSignInOptions
 import uiComponents.authentication.ConsentCheckbox
 import uiComponents.authentication.ContinueButton
@@ -22,7 +27,8 @@ fun AuthenticationScreen(
     viewModel: AuthenticationViewModel = viewModel(), modifier: Modifier = Modifier) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
-
+    val sharedViewModel = koinViewModel<SharedViewModel>()
+    val uiData by sharedViewModel.uiData.collectAsState()
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -34,7 +40,7 @@ fun AuthenticationScreen(
     ) {
         // Header
         HeaderSection()
-
+        Text(uiData)
         Spacer(modifier = Modifier.height(32.dp))
 
         // Mobile Input with Country Code

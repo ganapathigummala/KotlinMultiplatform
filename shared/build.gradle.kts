@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.nativecoroutines)
 }
 
 kotlin {
@@ -12,19 +14,43 @@ kotlin {
         }
     }
     
-    listOf(
-        iosArm64(),
+
+        iosX64()
+        iosArm64()
         iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "Shared"
-            isStatic = true
-        }
-    }
+
     
     sourceSets {
+        all {
+            languageSettings {
+                optIn("kotlin.experimental.ExperimentalObjCName")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            }
+        }
+        androidMain.dependencies {
+            implementation("androidx.core:core-splashscreen:1.0.1")
+
+            implementation(libs.compose.uiToolingPreview)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.material3)
+            // image loading
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
+
+        }
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation(projects.feature.home.domain)
+            implementation(projects.feature.home.data)
+            implementation(projects.coreNetwork)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.kmp.observableviewmodel.core)
+
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

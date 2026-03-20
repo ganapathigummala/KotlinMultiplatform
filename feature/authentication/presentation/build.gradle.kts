@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.nativecoroutines)
 }
 
 kotlin {
@@ -14,6 +16,13 @@ kotlin {
 
 
     sourceSets {
+        all {
+            languageSettings {
+                optIn("kotlin.experimental.ExperimentalObjCName")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            }
+        }
+
         commonMain.dependencies {
 
             implementation(projects.feature.home.domain)
@@ -22,6 +31,7 @@ kotlin {
 
             implementation(libs.koin.core)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.kmp.observableviewmodel.core)
 
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)

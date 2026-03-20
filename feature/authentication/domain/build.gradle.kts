@@ -16,7 +16,12 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-
+        all {
+            languageSettings {
+                optIn("kotlin.experimental.ExperimentalObjCName")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            }
+        }
         commonMain.dependencies {
 
             implementation(libs.kotlinx.coroutines.core)
