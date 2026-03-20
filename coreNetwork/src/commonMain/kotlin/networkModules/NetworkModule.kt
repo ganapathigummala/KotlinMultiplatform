@@ -1,7 +1,7 @@
 package com.example.multimodule.core.network.di
 
-import com.example.multimodule.coreNetwork.model.NasaApi
-import com.example.multimodule.coreNetwork.model.getPlatformHttpClientEngine
+import com.example.multimodule.coreNetwork.retrofit.NasaApi
+import com.example.multimodule.coreNetwork.expectFunction.getPlatformHttpClientEngine
 import io.ktor.client.HttpClient
 import org.koin.dsl.module
 
@@ -10,7 +10,6 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 import io.ktor.client.plugins.logging.*
-import kotlinx.coroutines.NonCancellable.get
 
 val NetworkModule = module {
 
@@ -34,4 +33,6 @@ val NetworkModule = module {
     }
 
     single { NasaApi(get()) }
+//    single { AuthApi(get()) }
+//    single { UserApi(get()) }
 }

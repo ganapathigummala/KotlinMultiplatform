@@ -30,14 +30,10 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.core)
             implementation(libs.kmp.observableviewmodel.core)
-            // image loading
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
 
-            // UI depends on presentation
-            implementation(projects.feature.authentication.presentation)
-            implementation(projects.feature.home.presentation)
-            implementation(projects.feature.home.domain)
+
             implementation(projects.shared)
             implementation(projects.coreNetwork)
 

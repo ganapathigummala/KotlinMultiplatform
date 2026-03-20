@@ -1,6 +1,4 @@
 package screens
-import android.content.Context
-import android.widget.TextView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +11,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.multimodule.R
-import com.example.multimodule.SharedViewModel
+import viewmodels.SharedViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import uiComponents.authentication.AlternativeSignInOptions
 import uiComponents.authentication.ConsentCheckbox
@@ -21,7 +19,7 @@ import uiComponents.authentication.ContinueButton
 import uiComponents.authentication.HeaderSection
 import uiComponents.authentication.LoginLink
 import uiComponents.authentication.MobileNumberInput
-import viewmodel.AuthenticationViewModel
+import viewmodels.AuthenticationViewModel
 @Composable
 fun AuthenticationScreen(
     viewModel: AuthenticationViewModel = viewModel(), modifier: Modifier = Modifier) {

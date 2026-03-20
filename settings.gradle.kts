@@ -32,10 +32,3 @@ include(":composeApp")
 include(":shared")
 include(":coreNetwork")
 
-include(":feature:home:data")
-include(":feature:home:domain")
-include(":feature:home:presentation")
-
-include(":feature:authentication:data")
-include(":feature:authentication:domain")
-include(":feature:authentication:presentation")

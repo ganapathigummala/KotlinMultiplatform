@@ -2,15 +2,15 @@ package state
 
 import com.example.multimodule.coreNetwork.model.ApodResponse
 
-sealed class ApodState {
+sealed class Resource {
 
-    object Loading : ApodState()
+    object Loading : Resource()
 
     data class Success(
-        val apod: ApodResponse?
-    ) : ApodState()
+        val data: ApodResponse?
+    ) : Resource()
 
     data class Error(
         val message: String
-    ) : ApodState()
+    ) : Resource()
 }

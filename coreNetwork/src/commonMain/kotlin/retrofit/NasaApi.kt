@@ -1,5 +1,6 @@
-package com.example.multimodule.coreNetwork.model
+package com.example.multimodule.coreNetwork.retrofit
 
+import com.example.multimodule.coreNetwork.model.ApodResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

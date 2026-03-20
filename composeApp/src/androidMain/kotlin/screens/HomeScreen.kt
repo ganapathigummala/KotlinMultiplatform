@@ -1,4 +1,4 @@
-package com.example.multimodule
+package screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -16,7 +16,8 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import state.ApodState
+import viewmodels.ApodViewModel
+import state.Resource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -28,16 +29,15 @@ fun HomeScreen(viewModel: ApodViewModel = koinViewModel(), modifier: Modifier = 
         viewModel.loadTodayApod()
     }
 
-    when (val currentState = state) {
-        is ApodState.Loading -> Box(
+    when (val apod = state) {
+        is Resource.Loading -> Box(
             Modifier.fillMaxSize()
         ) {
             CircularProgressIndicator(Modifier.align(Alignment.Center))
         }
 
-        is ApodState.Success -> {
-            val apod = currentState.apod
-            println("apod ${apod?.title}")
+        is Resource.Success -> {
+            println("apod ${apod.data?.title}")
 
             if (apod != null) {
                 val scrollState = rememberScrollState()
@@ -49,24 +49,28 @@ fun HomeScreen(viewModel: ApodViewModel = koinViewModel(), modifier: Modifier = 
                         .padding(16.dp), // Padding inside the scrollable column
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = apod.title,
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                    Text(
-                        text = apod.date,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    apod.data?.title?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.headlineMedium
+                        )
+                    }
+                    apod.data?.date?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
 
-                    if (apod.media_type == "image") {
-                        val imageUrl = apod.hdurl ?: apod.url
+                    if (apod.data?.media_type == "image") {
+                        val imageUrl = apod.data?.hdurl ?: apod.data?.url
 
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(imageUrl)
                                 .crossfade(true)
                                 .build(),
-                            contentDescription = apod.title,
+                            contentDescription = apod.data?.title,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(250.dp)
@@ -78,13 +82,15 @@ fun HomeScreen(viewModel: ApodViewModel = koinViewModel(), modifier: Modifier = 
                         Text("Video content - open in browser")
                     }
 
-                    Text(
-                        text = apod.explanation,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(vertical = 8.dp)
-                    )
+                    apod.data?.explanation?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(vertical = 8.dp)
+                        )
+                    }
 
-                    apod.copyright?.let {
+                    apod.data?.copyright?.let {
                         Text(
                             text = "© $it",
                             style = MaterialTheme.typography.bodySmall
@@ -105,12 +111,12 @@ fun HomeScreen(viewModel: ApodViewModel = koinViewModel(), modifier: Modifier = 
             }
         }
 
-        is ApodState.Error -> {
+        is Resource.Error -> {
             Box(
                 Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Error: ${currentState.message}")
+                Text("Error: ${apod.message}")
             }
         }
     }

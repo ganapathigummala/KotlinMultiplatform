@@ -1,4 +1,4 @@
-package com.example.multimodule
+package viewmodels
 
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class SharedViewModel : ViewModel() {
-    private val  uiState = MutableStateFlow(viewModelScope,"")
+    private val  uiState = MutableStateFlow(viewModelScope, "")
     @NativeCoroutinesState
     val uiData: StateFlow<String> = uiState.asStateFlow()
 

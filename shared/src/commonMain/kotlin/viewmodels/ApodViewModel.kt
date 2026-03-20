@@ -1,19 +1,19 @@
-package com.example.multimodule
+package viewmodels
 
-import com.example.multimodule.coreNetwork.model.NasaApi
+import com.example.multimodule.coreNetwork.retrofit.NasaApi
 import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
 import com.rickclephas.kmp.observableviewmodel.ViewModel
 import com.rickclephas.kmp.observableviewmodel.launch
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import state.ApodState
+import state.Resource
 
 class ApodViewModel(
     private val nasaApi: NasaApi
 ) : ViewModel() {
 
-    private val _apodState = MutableStateFlow<ApodState>(viewModelScope,ApodState.Loading)
-    val apodState: StateFlow<ApodState> = _apodState.asStateFlow()
+    private val _apodState = MutableStateFlow<Resource>(viewModelScope, Resource.Loading)
+    val apodState: StateFlow<Resource> = _apodState.asStateFlow()
 
     init {
         println("✅ ApodViewModel created")
@@ -24,7 +24,7 @@ class ApodViewModel(
 
         viewModelScope.launch {
 
-            _apodState.value = ApodState.Loading
+            _apodState.value = Resource.Loading
 
             try {
 
@@ -40,12 +40,12 @@ class ApodViewModel(
                 println("📡 API response = $response")
 
                 _apodState.value =
-                    ApodState.Success(response.firstOrNull())
+                    Resource.Success(response.firstOrNull())
 
             } catch (e: Exception) {
 
                 _apodState.value =
-                    ApodState.Error(e.message ?: "Unknown error")
+                    Resource.Error(e.message ?: "Unknown error")
 
             }
         }

@@ -1,15 +1,15 @@
-package viewmodel
+package viewmodels
 
-// In Android module (e.g., viewmodel package)
-import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import state.AuthUiState
+import model.AuthUiState
+import state.Resource
 
 class AuthenticationViewModel : ViewModel() {
     // UI state
-    private val _uiState = MutableStateFlow(AuthUiState())
+    private val _uiState = MutableStateFlow(viewModelScope,AuthUiState())
     val uiState = _uiState.asStateFlow()
 
     fun updateMobileNumber(number: String) {
@@ -47,4 +47,3 @@ class AuthenticationViewModel : ViewModel() {
         return uiState.value.mobileNumber.length == 10 && uiState.value.consentChecked
     }
 }
-
