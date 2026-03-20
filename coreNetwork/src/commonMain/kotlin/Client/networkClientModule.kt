@@ -19,6 +19,7 @@ val networkClientModule = module {
             }
             install(Logging) {
                 level = LogLevel.INFO
-            } }
+            }
+        }
     }
     single { NasaApi(get()) } }
