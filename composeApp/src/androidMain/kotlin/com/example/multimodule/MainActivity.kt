@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import screens.AuthenticationScreen
+import kotlin.random.Random
 
 //    class MainActivity : ComponentActivity() {
 //        override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,43 +42,49 @@ import screens.AuthenticationScreen
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         val splashScreen = installSplashScreen()
 
         var isChecking = true
+        var isEven = false
+        var isLoggedIn = false
+
         lifecycleScope.launch {
-            delay(500)
+            val randomNumber = Random.nextInt(0, 100)
+            isEven = randomNumber % 2 == 0
+            println("Random number = $randomNumber")
+//            val token = dataStore.getToken()
+//            isLoggedIn = token != null
             isChecking = false
         }
 
         splashScreen.setKeepOnScreenCondition { isChecking }
+
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         setContent {
+
             Scaffold { paddingValues ->
-                HomeScreen(modifier = Modifier.padding(paddingValues))
+
+                if (isEven) {
+                    HomeScreen(
+                        modifier = Modifier.padding(paddingValues)
+                    )
+                } else {
+                    AuthenticationScreen(
+                        modifier = Modifier.padding(paddingValues)
+                    )
+                }
 
             }
+
         }
     }
 }
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun HomeScreenWithInsets() {
-        // Handle back button manually if needed
-        BackHandler {
-            // default behavior is to finish the activity
-        }
 
-        Scaffold { paddingValues ->
-            // This padding ensures content is below status bar & above navigation bar
-    //        HomeScreen(modifier = Modifier.padding(paddingValues))
-            HomeScreen(modifier = Modifier.padding(paddingValues))
-
-        }
-    }
 
     @Preview(showBackground = true)
     @Composable
