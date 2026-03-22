@@ -1,0 +1,26 @@
+name: iOS Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build iOS App
+        run: |
+          xcodebuild \
+          -workspace iosApp/iosApp.xcworkspace \
+          -scheme iosApp \
+          -sdk iphonesimulator \
+          -configuration Debug \
+          build
