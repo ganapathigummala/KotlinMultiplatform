@@ -1,4 +1,4 @@
-name: iOS Build
+name: Build iOS App
 
 on:
   push:
@@ -13,8 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode.app
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Grant execute permission for Gradle
+        run: chmod +x gradlew
+
+      - name: Build Shared Kotlin Framework
+        run: ./gradlew :shared:assemble
 
       - name: Build iOS App
         run: |
@@ -22,5 +31,5 @@ jobs:
           -project iosApp/iosApp.xcodeproj \
           -scheme iosApp \
           -sdk iphonesimulator \
-          -configuration Debug \
+          -configuration Release \
           build
