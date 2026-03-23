@@ -25,7 +25,7 @@ koin = "4.1.0"
 ktor = "3.1.0"# KMP ObservableViewModel – https://github.com/rickclephas/KMP-ObservableViewModel
 #kmpObservableviewmodelCore = "1.0.0-BETA-13"
 kmpObservableviewmodelCore ="1.0.2"
-nativecoroutines = "1.0.0-ALPHA-38"
+nativecoroutines = "1.0.0-ALPHA-46"
 
 # Coil – https://coil-kt.github.io/coil/changelog/
 coil = "3.1.0"
