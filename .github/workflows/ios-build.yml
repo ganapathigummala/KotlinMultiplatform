@@ -1,27 +1,23 @@
-name: iOS Build
+name: Build iOS App
 
 on:
   push:
     branches:
       - master
 
-
 jobs:
-  build-ios:
+  build:
     runs-on: macos-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode.app
-
-      - name: Build iOS App
+      - name: Build iOS
         run: |
           xcodebuild \
           -project iosApp/iosApp.xcodeproj \
           -scheme iosApp \
           -sdk iphonesimulator \
-          -configuration Debug \
+          -configuration Release \
           build
