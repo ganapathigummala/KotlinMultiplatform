@@ -59,6 +59,7 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
