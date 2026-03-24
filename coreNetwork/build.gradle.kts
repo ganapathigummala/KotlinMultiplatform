@@ -27,7 +27,7 @@ kotlin {
             }
         }
         androidMain.dependencies {
-
+            implementation("com.jakewharton.timber:timber:5.0.1")
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
 
@@ -71,6 +71,9 @@ kotlin {
 
 android {
     namespace = "com.example.multimodule.coreNetwork"
+    buildFeatures {
+        buildConfig = true
+    }
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

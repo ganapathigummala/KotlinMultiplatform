@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -33,6 +32,7 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
 
+                implementation("com.jakewharton.timber:timber:5.0.1")
 
             implementation(projects.shared)
             implementation(projects.coreNetwork)
@@ -60,23 +60,37 @@ android {
     namespace = "com.example.multimodule"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.example.multimodule"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
+
         versionCode = 1
         versionName = "1.0"
     }
+
+    buildTypes {
+
+        debug {
+            buildConfigField("Boolean", "ENABLE_LOGS", "true")
+        }
+
+        release {
+            buildConfigField("Boolean", "ENABLE_LOGS", "false")
+            isMinifyEnabled = false
+        }
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

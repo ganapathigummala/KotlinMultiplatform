@@ -36,6 +36,7 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
+            implementation("com.jakewharton.timber:timber:5.0.1")
 
         }
         commonMain.dependencies {
@@ -55,6 +56,9 @@ kotlin {
 
 android {
     namespace = "com.example.multimodule.shared"
+    buildFeatures {
+        buildConfig = true
+    }
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

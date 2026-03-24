@@ -6,10 +6,10 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.isSuccess
+import logger.Logger
 
 class NasaApi(
     private val client: HttpClient,
-    private val baseUrl: String = "https://api.nasa.gov"
 ) {
 
     suspend fun getApod(
@@ -21,9 +21,8 @@ class NasaApi(
         apiKey: String
     ): List<ApodResponse> {
 
-        println("🌐 Request → $baseUrl/planetary/apod")
 
-        val response = client.get("$baseUrl/planetary/apod") {
+        val response = client.get("${Environment.baseUrl}/planetary/apod") {
             parameter("api_key", apiKey)
             date?.let { parameter("date", it) }
             startDate?.let { parameter("start_date", it) }
@@ -31,9 +30,11 @@ class NasaApi(
             count?.let { parameter("count", it) }
             parameter("thumbs", thumbs)
         }
+        Logger.d("gana","${response.status}")
 
         if (!response.status.isSuccess()) {
             println("❌ API error: ${response.status}")
+            Logger.d("gana","${response.status}")
             return emptyList()
         }
 

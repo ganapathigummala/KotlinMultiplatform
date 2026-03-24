@@ -1,12 +1,15 @@
 package Client
 import com.example.multimodule.coreNetwork.expectFun.getPlatformHttpClientEngine
 import com.example.multimodule.coreNetwork.retrofit.NasaApi
+import config.AppConfig
 import io.ktor.client.HttpClient
 import org.koin.dsl.module
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import io.ktor.client.plugins.logging.*
+import io.ktor.util.Platform
+
 val networkClientModule = module {
     single {
         HttpClient(getPlatformHttpClientEngine()) {
@@ -18,7 +21,11 @@ val networkClientModule = module {
                 } )
             }
             install(Logging) {
-                level = LogLevel.INFO
+                level =
+                    if (AppConfig.isDebug)
+                        LogLevel.BODY
+                    else
+                        LogLevel.NONE
             }
         }
     }
