@@ -19,7 +19,9 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.core.splashscreen)
-
+            implementation("androidx.compose.material:material-icons-extended:1.7.8")
+            implementation(libs.androidx.navigation.compose)
+            implementation("androidx.compose.animation:animation:1.7.6")
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.compose.runtime)

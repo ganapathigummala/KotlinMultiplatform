@@ -33,6 +33,7 @@ coil = "3.1.0"
 # KSP – https://github.com/google/ksp/releases
 ksp = "2.3.0-1.0.20"
 runtimeSavedInstanceState = "1.0.0-alpha11"
+navigationCompose = "2.9.7"
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -82,6 +83,7 @@ kmp-observableviewmodel-core = { module = "com.rickclephas.kmp:kmp-observablevie
 # Navigation Compose (optional – add if you need navigation)
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "composeMultiplatform" }
 androidx-runtime-saved-instance-state = { group = "androidx.compose.runtime", name = "runtime-saved-instance-state", version.ref = "runtimeSavedInstanceState" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
