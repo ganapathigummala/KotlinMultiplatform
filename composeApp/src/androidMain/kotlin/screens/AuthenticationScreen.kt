@@ -22,7 +22,10 @@ import uiComponents.authentication.MobileNumberInput
 import viewmodels.AuthenticationViewModel
 @Composable
 fun AuthenticationScreen(
-    viewModel: AuthenticationViewModel = viewModel(), modifier: Modifier = Modifier) {
+    viewModel: AuthenticationViewModel = viewModel(),
+    modifier: Modifier = Modifier,
+    onLoginSuccess: () -> Unit,
+) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
     val sharedViewModel = koinViewModel<SharedViewModel>()
@@ -65,7 +68,7 @@ fun AuthenticationScreen(
         ContinueButton(
             enabled = viewModel.isFormValid() && !uiState.isLoading,
             isLoading = uiState.isLoading,
-            onClick = { viewModel.onContinue() }
+            onClick = { onLoginSuccess() }
         )
 
         Spacer(modifier = Modifier.height(16.dp))

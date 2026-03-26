@@ -14,7 +14,7 @@ import navigation.bottomNavItems
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App(isEven: Boolean) {
+fun App() {
 
     val navController = rememberNavController()
 
@@ -24,7 +24,7 @@ fun App(isEven: Boolean) {
     Scaffold(
 
         topBar = {
-            if (isEven) {
+
                 val currentRoute = selectedTab
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -60,11 +60,11 @@ fun App(isEven: Boolean) {
                         }
                     }
                 )
-            }
+
         },
 
         bottomBar = {
-            if (isEven) {
+
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.surface
                 ) {
@@ -105,13 +105,13 @@ fun App(isEven: Boolean) {
                             )
                         )
                     }
-                }
+
             }
         }
 
     ) { paddingValues ->
 
-        if (isEven) {
+
 
             NavHost(
                 navController = navController,
@@ -126,12 +126,6 @@ fun App(isEven: Boolean) {
 
             }
 
-        } else {
 
-            AuthenticationScreen(
-                modifier = Modifier.padding(paddingValues)
-            )
-
-        }
     }
 }

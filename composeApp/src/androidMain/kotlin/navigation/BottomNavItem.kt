@@ -20,11 +20,7 @@ val bottomNavItems = listOf(
         route = NavRoutes.Home.route,
         icon = Icons.Filled.Home
     ),
-    BottomNavItem(
-        title = "Settings",
-        route = NavRoutes.Settings.route,
-        icon = Icons.Filled.Settings
-    ),
+
     BottomNavItem(
         title = "Chat",
         route = NavRoutes.Chat.route,
@@ -35,5 +31,10 @@ val bottomNavItems = listOf(
         title = "Profile",
         route = NavRoutes.Profile.route,
         icon = Icons.Filled.Person
+    ),
+    BottomNavItem(
+            title = "Settings",
+    route = NavRoutes.Settings.route,
+    icon = Icons.Filled.Settings
     )
 )
