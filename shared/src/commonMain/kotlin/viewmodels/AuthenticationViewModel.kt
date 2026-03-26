@@ -5,7 +5,6 @@ import com.rickclephas.kmp.observableviewmodel.ViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import model.AuthUiState
-import state.Resource
 
 class AuthenticationViewModel : ViewModel() {
     // UI state

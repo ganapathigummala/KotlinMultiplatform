@@ -1,5 +1,6 @@
 package viewmodels
 
+import com.example.multimodule.coreNetwork.model.ApodResponse
 import com.example.multimodule.coreNetwork.retrofit.NasaApi
 import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
 import com.rickclephas.kmp.observableviewmodel.ViewModel
@@ -12,23 +13,22 @@ class ApodViewModel(
     private val nasaApi: NasaApi
 ) : ViewModel() {
 
-    private val _apodState = MutableStateFlow<Resource>(viewModelScope, Resource.Loading)
-    val apodState: StateFlow<Resource> = _apodState.asStateFlow()
+    private val _apodState = MutableStateFlow<Resource<ApodResponse?>>(viewModelScope, Resource.Loading)
+
+    val apodState: StateFlow<Resource<ApodResponse?>> = _apodState.asStateFlow()
 
     init {
         println("✅ ApodViewModel created")
     }
 
     fun loadTodayApod() {
-        println("📡 loadTodayApod called")
 
         viewModelScope.launch {
 
             _apodState.value = Resource.Loading
 
-            try {
-
-                val response = nasaApi.getApod(
+            when (
+                val result = nasaApi.getApod(
                     null,
                     null,
                     null,
@@ -36,17 +36,21 @@ class ApodViewModel(
                     false,
                     "sNOZ0Gh92DCCf0Tol6GWOwU5akR0CXmtJPOvAkmV"
                 )
+            ) {
 
-                println("📡 API response = $response")
+                is Resource.Success -> {
 
-                _apodState.value =
-                    Resource.Success(response.firstOrNull())
+                    _apodState.value =
+                        Resource.Success(result.data.firstOrNull())
+                }
 
-            } catch (e: Exception) {
+                is Resource.Error -> {
 
-                _apodState.value =
-                    Resource.Error(e.message ?: "Unknown error")
+                    _apodState.value =
+                        Resource.Error(result.error)
+                }
 
+                Resource.Loading -> {}
             }
         }
     }

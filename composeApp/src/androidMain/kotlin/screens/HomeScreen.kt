@@ -1,12 +1,10 @@
 package screens
 
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import logger.Logger
+import network.NetworkError
 import viewmodels.ApodViewModel
-import state.Resource
 import org.koin.compose.viewmodel.koinViewModel
-
+import state.Resource
 @Composable
 fun HomeScreen(
     viewModel: ApodViewModel = koinViewModel(),
@@ -19,7 +17,6 @@ fun HomeScreen(
     when (val result = state) {
 
         is Resource.Loading -> {
-            Logger.d("gana", "Loading APOD")
             LoadingScreen()
         }
 
@@ -30,8 +27,17 @@ fun HomeScreen(
         }
 
         is Resource.Error -> {
-            Logger.d("gana", "Error: ${result.message}")
-            ErrorScreen(result.message)
+
+            val message = when (result.error) {
+
+                NetworkError.NoInternet -> "No internet connection"
+                NetworkError.Timeout -> "Request timeout"
+                NetworkError.Unauthorized -> "Unauthorized"
+                NetworkError.ServerError -> "Server error"
+                else -> "Something went wrong"
+            }
+
+            ErrorScreen(message)
         }
     }
 }

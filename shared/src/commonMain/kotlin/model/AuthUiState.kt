@@ -11,3 +11,4 @@ data class AuthUiState(
     val mobileNumberError: String? = null,
     val consentError: String? = null
 )
+
