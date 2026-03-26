@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 import androidx.compose.runtime.*
+import designsystem.AppTheme
 
 import screens.App
 import screens.AuthenticationScreen
@@ -41,7 +42,12 @@ class MainActivity : ComponentActivity() {
             splashScreen.setKeepOnScreenCondition { isChecking }
 
             if (isEven) {
-                App()
+
+                AppTheme {
+                    App(
+                        onLogout = { isEven = false }
+                    )
+                }
             } else {
                 AuthenticationScreen(
                     onLoginSuccess = { isEven = true }

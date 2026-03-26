@@ -6,126 +6,172 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.compose.*
+import navigation.NavRoutes
 import navigation.bottomNavItems
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App() {
+fun App(onLogout: () -> Unit) {
 
     val navController = rememberNavController()
 
-    // Persist the selected tab index
-    var selectedTab by rememberSaveable { mutableStateOf("home") }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    val bottomBarRoutes = listOf(
+        NavRoutes.Home.route,
+        NavRoutes.Settings.route,
+        NavRoutes.Chat.route,
+        NavRoutes.Profile.route
+    )
 
     Scaffold(
 
         topBar = {
 
-                val currentRoute = selectedTab
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        titleContentColor = MaterialTheme.colorScheme.primary
-                    ),
-                    title = {
-                        Text(
-                            text = "Health Care",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            style = MaterialTheme.typography.headlineMedium
-                        )
-                    },
-                    navigationIcon = {
-                        if (selectedTab != "home") {
-                            IconButton(
-                                onClick = { navController.popBackStack() }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = "Back"
-                                )
-                            }
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = { }) {
+            CenterAlignedTopAppBar(
+
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary
+                ),
+
+                title = {
+                    Text(
+                        text = "Health Care",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                },
+
+                navigationIcon = {
+
+                    if (currentRoute !in bottomBarRoutes) {
+
+                        IconButton(
+                            onClick = { navController.popBackStack() }
+                        ) {
                             Icon(
-                                imageVector = Icons.Filled.Menu,
-                                contentDescription = "Menu"
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back"
                             )
                         }
-                    }
-                )
 
+                    }
+
+                },
+
+                actions = {
+
+                    IconButton(
+                        onClick = {
+                            navController.navigate(NavRoutes.Menu.route)
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Menu"
+                        )
+                    }
+
+                }
+            )
         },
 
         bottomBar = {
 
+            if (currentRoute in bottomBarRoutes) {
+
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.surface
                 ) {
+
                     bottomNavItems.forEach { item ->
 
                         NavigationBarItem(
-                            selected = selectedTab == item.route,
+
+                            selected = currentRoute == item.route,
 
                             onClick = {
-                                selectedTab = item.route
+
                                 navController.navigate(item.route) {
+
                                     popUpTo(navController.graph.startDestinationId) {
                                         saveState = true
                                     }
+
                                     launchSingleTop = true
                                     restoreState = true
+
                                 }
+
                             },
 
                             icon = {
+
                                 Icon(
                                     imageVector = item.icon,
                                     contentDescription = item.title
                                 )
+
                             },
 
-                            label = { Text(item.title) },
+                            label = {
+                                Text(item.title)
+                            },
 
                             colors = NavigationBarItemDefaults.colors(
-                                /* SELECTED TAB */
+
                                 selectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer,
                                 selectedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
                                 indicatorColor = MaterialTheme.colorScheme.secondaryContainer,
 
-                                /* UNSELECTED TAB */
                                 unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         )
                     }
-
+                }
             }
         }
 
     ) { paddingValues ->
 
+        NavHost(
+            navController = navController,
+            startDestination = NavRoutes.Home.route,
+            modifier = Modifier.padding(paddingValues)
+        ) {
 
-
-            NavHost(
-                navController = navController,
-                startDestination = "home",
-                modifier = Modifier.padding(paddingValues)
-            ) {
-
-                composable("home") { HomeScreen() }
-                composable("settings") { SettingsScreen() }
-                composable("chat") { ChatScreen() }
-                composable("profile") { ProfileScreen() }
-
+            composable(NavRoutes.Home.route) {
+                HomeScreen()
             }
 
+            composable(NavRoutes.Settings.route) {
+                SettingsScreen()
+            }
 
+            composable(NavRoutes.Chat.route) {
+                ChatScreen()
+            }
+
+            composable(NavRoutes.Profile.route) {
+                ProfileScreen()
+            }
+
+            composable(NavRoutes.Menu.route) {
+
+                MenuScreen(
+                    logOut = {
+                        onLogout()
+                    }
+                )
+
+            }
+        }
     }
 }
