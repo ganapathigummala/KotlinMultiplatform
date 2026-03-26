@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +25,8 @@ import com.example.multimodule.coreNetwork.model.ApodResponse
 @Composable
 fun ApodContent(
     data: ApodResponse,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onChat: (String, Int) -> Unit
 ) {
 
     val scrollState = rememberScrollState()
@@ -77,6 +79,13 @@ fun ApodContent(
                 text = "© $it",
                 style = MaterialTheme.typography.bodySmall
             )
+        }
+
+        Button(onClick ={ onChat(
+            "Hello Gana",
+            24
+        )}) {
+            Text("Chat")
         }
     }
 }

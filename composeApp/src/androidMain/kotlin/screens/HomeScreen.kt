@@ -5,15 +5,19 @@ import network.NetworkError
 import viewmodels.ApodViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import state.Resource
+
 @Composable
 fun HomeScreen(
     viewModel: ApodViewModel = koinViewModel(),
-) {
+    onChat: (String, Int) -> Unit = { _, _ -> }
+){
 
     val state by viewModel.apodState.collectAsState()
+
     LaunchedEffect(Unit) {
         viewModel.loadTodayApod()
     }
+
     when (val result = state) {
 
         is Resource.Loading -> {
@@ -22,7 +26,12 @@ fun HomeScreen(
 
         is Resource.Success -> {
             result.data?.let {
-                ApodContent(data = it)
+
+                ApodContent(
+                    data = it,
+                    onChat = onChat
+                )
+
             }
         }
 

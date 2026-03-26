@@ -9,6 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.compose.*
+
+import designsystem.AppColors
 import navigation.NavRoutes
 import navigation.bottomNavItems
 
@@ -99,40 +101,22 @@ fun App(onLogout: () -> Unit) {
                             onClick = {
 
                                 navController.navigate(item.route) {
-
-                                    popUpTo(navController.graph.startDestinationId) {
-                                        saveState = true
-                                    }
-
+                                    popUpTo(NavRoutes.Home.route)
                                     launchSingleTop = true
-                                    restoreState = true
-
                                 }
 
                             },
 
                             icon = {
-
                                 Icon(
                                     imageVector = item.icon,
                                     contentDescription = item.title
                                 )
-
                             },
 
                             label = {
                                 Text(item.title)
-                            },
-
-                            colors = NavigationBarItemDefaults.colors(
-
-                                selectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                selectedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                indicatorColor = MaterialTheme.colorScheme.secondaryContainer,
-
-                                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                            }
                         )
                     }
                 }
@@ -148,15 +132,36 @@ fun App(onLogout: () -> Unit) {
         ) {
 
             composable(NavRoutes.Home.route) {
-                HomeScreen()
+
+                HomeScreen(
+                    onChat = { message, id ->
+                        navController.navigate(
+                            NavRoutes.Chat.createRoute(message, id)
+                        )
+                    }
+                )
             }
 
             composable(NavRoutes.Settings.route) {
                 SettingsScreen()
             }
 
-            composable(NavRoutes.Chat.route) {
-                ChatScreen()
+            composable(
+                route = NavRoutes.Chat.route
+            ) { backStackEntry ->
+
+                val message =
+                    backStackEntry.arguments?.getString("message") ?: ""
+
+                val id =
+                    backStackEntry.arguments
+                        ?.getString("id")
+                        ?.toIntOrNull() ?: 0
+
+                ChatScreen(
+                    message = message,
+                    id = id
+                )
             }
 
             composable(NavRoutes.Profile.route) {

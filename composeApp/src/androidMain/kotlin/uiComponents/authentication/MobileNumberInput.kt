@@ -17,12 +17,16 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -36,38 +40,52 @@ fun MobileNumberInput(
     onMobileNumberChange: (String) -> Unit,
     error: String?
 ) {
-    // Simple dropdown for country codes – in a real app you'd have a list
+
     val countryCodes = listOf("+1", "+44", "+91", "+61")
     var expanded by remember { mutableStateOf(false) }
-    var text by remember { mutableStateOf("") }
+
     val maxChars = 10
-    Column(modifier = Modifier.fillMaxWidth()
-        ) {
+
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Country code picker
+
             ExposedDropdownMenuBox(
                 expanded = expanded,
                 onExpandedChange = { expanded = !expanded },
-                modifier = Modifier
-                    .weight(0.4f)
+                modifier = Modifier.weight(0.4f)
             ) {
+
                 TextField(
                     value = countryCode,
                     onValueChange = {},
                     readOnly = true,
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                    },
                     modifier = Modifier
                         .menuAnchor()
                         .wrapContentWidth()
                 )
+
                 ExposedDropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false }
                 ) {
+
                     countryCodes.forEach { code ->
+
                         DropdownMenuItem(
                             text = { Text(code) },
                             onClick = {
@@ -81,7 +99,6 @@ fun MobileNumberInput(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            // Mobile number field
             OutlinedTextField(
                 value = mobileNumber,
                 onValueChange = { newText ->
@@ -89,7 +106,9 @@ fun MobileNumberInput(
                         onMobileNumberChange(newText)
                     }
                 },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f)
+                    .focusRequester(focusRequester),
                 placeholder = { Text("Mobile number") },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
@@ -99,6 +118,7 @@ fun MobileNumberInput(
                 isError = error != null
             )
         }
+
         if (error != null) {
             Text(
                 text = error,
