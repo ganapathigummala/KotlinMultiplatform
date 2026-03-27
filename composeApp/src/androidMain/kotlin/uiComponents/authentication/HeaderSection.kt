@@ -20,11 +20,11 @@ import com.example.multimodule.R
 fun HeaderSection() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         // Replace with actual illustration/icon
-        Image(
-            painter = painterResource(id = R.drawable.bitcoin),
-            contentDescription = "app Image",
-            modifier = Modifier.size(80.dp)
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.bitcoin),
+//            contentDescription = "app Image",
+//            modifier = Modifier.size(80.dp)
+//        )
         Text(
             text = "Your Family’s Healthcare in One App",
             style = MaterialTheme.typography.headlineSmall,

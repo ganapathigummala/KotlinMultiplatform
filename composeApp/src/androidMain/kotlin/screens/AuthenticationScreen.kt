@@ -2,16 +2,24 @@ package screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
+import coil3.request.placeholder
 import com.example.multimodule.R
 import viewmodels.SharedViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -19,6 +27,7 @@ import uiComponents.authentication.AlternativeSignInOptions
 import uiComponents.authentication.ConsentCheckbox
 import uiComponents.authentication.ContinueButton
 import uiComponents.authentication.HeaderSection
+import uiComponents.authentication.InfiniteHorizontalCarousel
 import uiComponents.authentication.LoginLink
 import uiComponents.authentication.MobileNumberInput
 import viewmodels.AuthenticationViewModel
@@ -32,7 +41,14 @@ fun AuthenticationScreen(
     val context = LocalContext.current
     val sharedViewModel = koinViewModel<SharedViewModel>()
     val uiData by sharedViewModel.uiData.collectAsState()
-
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
+    val imageUrls = listOf(
+        "https://picsum.photos/800/400?1",
+        "https://picsum.photos/800/400?2",
+        "https://picsum.photos/800/400?3",
+        "https://picsum.photos/800/400?4"
+    )
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -42,10 +58,36 @@ fun AuthenticationScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Header
-        HeaderSection()
-        Text(uiData)
+        Column(modifier = modifier.fillMaxWidth()) {
+            InfiniteHorizontalCarousel(
+                items = imageUrls,
+                itemWidth = screenWidth * 0.7f,
+                itemSpacing = 10.dp,
+                contentPadding = PaddingValues(horizontal = 2.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(vertical = 12.dp)
+            ) { imageUrl ->
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(imageUrl)
+                        .crossfade(true)
+                        .placeholder(R.drawable.bitcoin)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+                        .height(180.dp)
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(32.dp))
+//        HeaderSection()
+//        Text(uiData)
+//        Spacer(modifier = Modifier.height(32.dp))
 
         // Mobile Input with Country Code
         MobileNumberInput(
