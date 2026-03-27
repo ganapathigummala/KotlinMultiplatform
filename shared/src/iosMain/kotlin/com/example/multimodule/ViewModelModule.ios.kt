@@ -4,7 +4,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import viewmodels.SharedViewModel
+import presentation.SharedViewModel
 
 actual fun ViewModelModule(): Module {
     return module { factory { SharedViewModel() } }

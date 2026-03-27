@@ -1,4 +1,4 @@
-package viewmodels
+package presentation
 
 import com.example.multimodule.coreNetwork.model.ApodResponse
 import com.example.multimodule.coreNetwork.retrofit.NasaApi

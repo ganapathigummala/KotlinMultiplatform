@@ -1,4 +1,4 @@
-package viewmodels
+package presentation
 
 import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
 import com.rickclephas.kmp.observableviewmodel.ViewModel

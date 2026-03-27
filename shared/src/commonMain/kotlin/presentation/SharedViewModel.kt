@@ -1,4 +1,4 @@
-package viewmodels
+package presentation
 
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import com.rickclephas.kmp.observableviewmodel.MutableStateFlow

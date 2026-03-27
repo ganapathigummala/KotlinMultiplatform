@@ -3,13 +3,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -21,16 +18,15 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import coil3.request.placeholder
 import com.example.multimodule.R
-import viewmodels.SharedViewModel
+import presentation.SharedViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import uiComponents.authentication.AlternativeSignInOptions
 import uiComponents.authentication.ConsentCheckbox
 import uiComponents.authentication.ContinueButton
-import uiComponents.authentication.HeaderSection
 import uiComponents.authentication.InfiniteHorizontalCarousel
 import uiComponents.authentication.LoginLink
 import uiComponents.authentication.MobileNumberInput
-import viewmodels.AuthenticationViewModel
+import presentation.AuthenticationViewModel
 @Composable
 fun AuthenticationScreen(
     viewModel: AuthenticationViewModel = viewModel(),

@@ -2,7 +2,7 @@ package screens
 
 import androidx.compose.runtime.*
 import network.NetworkError
-import viewmodels.ApodViewModel
+import presentation.ApodViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import state.Resource
 
